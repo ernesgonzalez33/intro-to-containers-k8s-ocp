@@ -32,6 +32,7 @@ In this lab we are going to see how to deploy a Kubernetes test cluster using [K
       image: docker.io/kindest/node@sha256:69860bda5563ac81e3c0057d654b5253219618a22ec3a346306239bba8cfa1a6
     EOF
     ~~~
+
 2. Copy the kubeconfig from root to your regular user
 
     ~~~sh
@@ -39,6 +40,7 @@ In this lab we are going to see how to deploy a Kubernetes test cluster using [K
     sudo cp /root/.kube/config ~/.kube/config
     sudo chmod 644 ~/.kube/config
     ~~~
+
 3. Deploy the NGINX Ingress Controller and wait for it rollout
 
     ~~~sh
@@ -46,7 +48,7 @@ In this lab we are going to see how to deploy a Kubernetes test cluster using [K
     kubectl -n ingress-nginx rollout status deployment ingress-nginx-controller
     ~~~
 
-## First contanct with a Kubernetes
+## First contact with a Kubernetes
 
 Now we have our Kubernetes test-cluster, but it's the first time that we interact with one, so let's get to know the basics.
 
@@ -59,18 +61,21 @@ Now we have our Kubernetes test-cluster, but it's the first time that we interac
     test-cluster-control-plane   Ready    control-plane,master   17m   v1.21.1
     test-cluster-worker          Ready    <none>                 16m   v1.21.1
     ~~~
+
 2. We have namespaces. Namespaces provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects (e.g. Deployments, Services, etc) and not for cluster-wide objects (e.g. StorageClass, Nodes, PersistentVolumes, etc).
 
     ~~~sh
     kubectl get namespaces
 
     NAME                 STATUS   AGE
-    default              Active   22m
-    kube-node-lease      Active   22m
-    kube-public          Active   22m
-    kube-system          Active   22m
-    local-path-storage   Active   22m
+    default              Active   4m22s
+    ingress-nginx        Active   2m19s
+    kube-node-lease      Active   4m24s
+    kube-public          Active   4m24s
+    kube-system          Active   4m24s
+    local-path-storage   Active   4m19s
     ~~~
+
 3. We also have pods. Pods are the smallest deployable units of computing that you can create and manage in Kubernetes. A pod can contain from 1 to many containers inside.
 
 
@@ -115,22 +120,22 @@ We have the required manifests present in these folders, we will use Kubectl to 
     1. Create the Namespace
 
         ~~~sh
-        kubectl create -f https://github.com/mvazquezc/intro-to-containers-k8s-ocp/raw/main/demo2-assets/mongo/namespace.yaml
+        kubectl create -f demo2-assets/mongo/namespace.yaml
         ~~~
     2. Create the Secret with Mongo credentials
     
         ~~~sh
-        kubectl create -f https://github.com/mvazquezc/intro-to-containers-k8s-ocp/raw/main/demo2-assets/mongo/secret.yaml
+        kubectl create -f demo2-assets/mongo/secret.yaml
         ~~~
     3. Create the Deployment
 
         ~~~sh
-        kubectl create -f https://raw.githubusercontent.com/mvazquezc/intro-to-containers-k8s-ocp/main/demo2-assets/mongo/deployment.yaml
+        kubectl create -f demo2-assets/mongo/deployment.yaml
         ~~~
     4. Create the Service
 
         ~~~sh
-        kubectl create -f https://raw.githubusercontent.com/mvazquezc/intro-to-containers-k8s-ocp/main/demo2-assets/mongo/service.yaml
+        kubectl create -f demo2-assets/mongo/service.yaml
         ~~~
     5. Check the Mongo Pod
 
@@ -146,42 +151,42 @@ We have the required manifests present in these folders, we will use Kubectl to 
     1. Create the Namespace
 
         ~~~sh
-        kubectl create -f https://raw.githubusercontent.com/mvazquezc/intro-to-containers-k8s-ocp/main/demo2-assets/pacman/namespace.yaml
+        kubectl create -f demo2-assets/pacman/namespace.yaml
         ~~~
     2. Create the ClusterRole
 
         ~~~sh
-        kubectl create -f https://raw.githubusercontent.com/mvazquezc/intro-to-containers-k8s-ocp/main/demo2-assets/pacman/cluster-role.yaml
+        kubectl create -f demo2-assets/pacman/cluster-role.yaml
         ~~~
     3. Create the ClusterRoleBinding
 
         ~~~sh
-        kubectl create -f https://raw.githubusercontent.com/mvazquezc/intro-to-containers-k8s-ocp/main/demo2-assets/pacman/cluster-role-binding.yaml
+        kubectl create -f demo2-assets/pacman/cluster-role-binding.yaml
         ~~~
     4. Create the Secret with Mongo credentials
 
         ~~~sh
-        kubectl create -f https://raw.githubusercontent.com/mvazquezc/intro-to-containers-k8s-ocp/main/demo2-assets/pacman/secret.yaml
+        kubectl create -f demo2-assets/pacman/secret.yaml
         ~~~
     5. Create the ServiceAccount
 
         ~~~sh
-        kubectl create -f https://raw.githubusercontent.com/mvazquezc/intro-to-containers-k8s-ocp/main/demo2-assets/pacman/service-account.yaml
+        kubectl create -f demo2-assets/pacman/service-account.yaml
         ~~~
     6. Create the Deployment
 
         ~~~sh
-        kubectl create -f https://raw.githubusercontent.com/mvazquezc/intro-to-containers-k8s-ocp/main/demo2-assets/pacman/deployment.yaml
+        kubectl create -f demo2-assets/pacman/deployment.yaml
         ~~~
     7. Create the Service
 
         ~~~sh
-        kubectl create -f https://raw.githubusercontent.com/mvazquezc/intro-to-containers-k8s-ocp/main/demo2-assets/pacman/service.yaml
+        kubectl create -f demo2-assets/pacman/service.yaml
         ~~~
     8. Create the Ingress
 
         ~~~sh
-        kubectl create -f https://raw.githubusercontent.com/mvazquezc/intro-to-containers-k8s-ocp/main/demo2-assets/pacman/ingress.yaml
+        kubectl create -f demo2-assets/pacman/ingress.yaml
         ~~~
     9. Check the Pacman Pod
 
@@ -192,6 +197,7 @@ We have the required manifests present in these folders, we will use Kubectl to 
         pacman-57859c8df7-879kt   1/1     Running   0          27s
         ~~~
 3. Access the game in your Fedora35 node IP in port 80.
+
 4. If at some point we need more capacity on the frontend of our application we can scale the deployment, run the scale command and check how if you access the app the request is handled by different pods:
 
     1. Scale the deployment so we have 5 pods 
