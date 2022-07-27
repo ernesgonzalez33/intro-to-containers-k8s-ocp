@@ -107,36 +107,36 @@ We have the required manifests present in these folders, we will use Kubectl to 
 
 2.  Deploy Pacman
 
-        1. Create the Namespace
+    1. Create the Namespace
 
-            ~~~sh
-            oc new-project <your-name>-pacman
-            ~~~
-        2. Create the ClusterRole
+        ~~~sh
+        oc new-project <your-name>-pacman
+        ~~~
+    2. Create the ClusterRole
 
-            ~~~sh
-            kubectl create -f demo2-assets/pacman/cluster-role.yaml
-            ~~~
-        3. Create the ClusterRoleBinding. But before, modify inside the file the namespace atribute to your pacman namespace
+        ~~~sh
+        kubectl create -f demo2-assets/pacman/cluster-role.yaml
+        ~~~
+    3. Create the ClusterRoleBinding. But before, modify inside the file the namespace atribute to your pacman namespace
 
-        ```yaml
-        apiVersion: rbac.authorization.k8s.io/v1
-        kind: ClusterRoleBinding
-        metadata:
-            name: pacman
-        subjects:
-            - kind: ServiceAccount
-            name: pacman
-            namespace: <your-name>-pacman
-        roleRef:
-            kind: ClusterRole
-            name: pacman
-            apiGroup: rbac.authorization.k8s.io
-        ```
+    ```yaml
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRoleBinding
+    metadata:
+        name: pacman
+    subjects:
+        - kind: ServiceAccount
+        name: pacman
+        namespace: <your-name>-pacman
+    roleRef:
+        kind: ClusterRole
+        name: pacman
+        apiGroup: rbac.authorization.k8s.io
+    ```
 
-          ~~~sh
-          kubectl create -f demo2-assets/pacman/cluster-role-binding.yaml
-          ~~~
+    ~~~sh
+    kubectl create -f demo2-assets/pacman/cluster-role-binding.yaml
+    ~~~
       4. Create the Secret with Mongo credentials
 
           ~~~sh
