@@ -5,7 +5,7 @@ metadata:
 subjects:
 - kind: ServiceAccount 
   name: pacman
-  namespace: pacman-game-ui
+  namespace: <your-name>-pacman
 roleRef:
   kind: ClusterRole
   name: pacman 

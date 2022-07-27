@@ -4,7 +4,6 @@ metadata:
   labels:
     name: pacman
   name: pacman
-  namespace: pacman-game-ui
 spec:
   ports:
   - port: 80

@@ -4,7 +4,6 @@ metadata:
   labels:
     name: pacman
   name: pacman
-  namespace: pacman-game-ui
 spec:
   replicas: 1
   selector:
@@ -23,7 +22,7 @@ spec:
         - containerPort: 8080
         env:
         - name: MONGO_SERVICE_HOST
-          value: mongo.pacman-game-mongo.svc.cluster.local
+          value: mongo.ernesto-mongo.svc.cluster.local
         - name: MONGO_AUTH_USER
           valueFrom:
             secretKeyRef:

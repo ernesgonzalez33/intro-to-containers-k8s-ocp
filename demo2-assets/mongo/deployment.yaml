@@ -4,7 +4,6 @@ metadata:
   labels:
     name: mongo
   name: mongo
-  namespace: pacman-game-mongo
 spec:
   replicas: 1
   selector:
@@ -20,6 +19,7 @@ spec:
         name: mongo
         ports:
         - containerPort: 27017
+          protocol: TCP
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
           valueFrom:
@@ -31,3 +31,16 @@ spec:
             secretKeyRef:
               key: database-password
               name: mongodb-secret
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data/configdb
+          name: mongo-volume-1
+        - mountPath: /data/db
+          name: mongo-volume-2
+      volumes:
+      - emptyDir: {}
+        name: mongo-volume-1
+      - emptyDir: {}
+        name: mongo-volume-2

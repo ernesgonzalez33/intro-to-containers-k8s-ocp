@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/balance: roundrobin
+    haproxy.router.openshift.io/disable_cookies: 'true'
+  labels:
+    name: pacman
+  name: pacman
+spec:
+  host: pacman-<your-name>-pacman.apps.gva-workshop.sandbox858.opentlc.com
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: pacman
+    weight: 100
+  wildcardPolicy: None
