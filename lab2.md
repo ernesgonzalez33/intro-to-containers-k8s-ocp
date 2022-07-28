@@ -112,12 +112,8 @@ We have the required manifests present in these folders, we will use Kubectl to 
         ~~~sh
         oc new-project <your-name>-pacman
         ~~~
-    2. Create the ClusterRole
 
-        ~~~sh
-        kubectl create -f demo2-assets/pacman/cluster-role.yaml
-        ~~~
-    3. Create the ClusterRoleBinding. But before, modify inside the file the namespace atribute to your pacman namespace
+    2. Create the ClusterRoleBinding. But before, modify inside the file the namespace atribute to your pacman namespace
 
     ```yaml
     apiVersion: rbac.authorization.k8s.io/v1
@@ -137,27 +133,28 @@ We have the required manifests present in these folders, we will use Kubectl to 
     ~~~sh
     kubectl create -f demo2-assets/pacman/cluster-role-binding.yaml
     ~~~
-      4. Create the Secret with Mongo credentials
 
-          ~~~sh
-          kubectl create -f demo2-assets/pacman/secret.yaml
-          ~~~
-      5. Create the ServiceAccount
+    3. Create the Secret with Mongo credentials
 
-          ~~~sh
-          kubectl create -f demo2-assets/pacman/service-account.yaml
-          ~~~
-      6. Create the Deployment
+        ~~~sh
+        kubectl create -f demo2-assets/pacman/secret.yaml
+        ~~~
+    4. Create the ServiceAccount
 
-          ~~~sh
-          kubectl create -f demo2-assets/pacman/deployment.yaml
-          ~~~
-      7. Create the Service
+        ~~~sh
+        kubectl create -f demo2-assets/pacman/service-account.yaml
+        ~~~
+    5. Create the Deployment
 
-          ~~~sh
-          kubectl create -f demo2-assets/pacman/service.yaml
-          ~~~
-      8. Create the Route. But before change the host attribute with the name of your namespace:
+        ~~~sh
+        kubectl create -f demo2-assets/pacman/deployment.yaml
+        ~~~
+    6. Create the Service
+
+        ~~~sh
+        kubectl create -f demo2-assets/pacman/service.yaml
+        ~~~
+    7. Create the Route. But before change the host attribute with the name of your namespace:
 
       ```yaml
         apiVersion: route.openshift.io/v1
@@ -180,20 +177,20 @@ We have the required manifests present in these folders, we will use Kubectl to 
         wildcardPolicy: None
       ```
 
-          > **NOTE:** Routes are a resource from OpenShift, not Kubernetes.
+    > **NOTE:** Routes are a resource from OpenShift, not Kubernetes.
 
-          ~~~sh
-          kubectl create -f demo2-assets/pacman/route.yaml
-          ~~~
+    ```sh
+    kubectl create -f demo2-assets/pacman/route.yaml
+    ```
 
-      9. Check the Pacman Pod
+    8. Check the Pacman Pod
 
-          ~~~sh
-          kubectl get pods
+        ~~~sh
+        kubectl get pods
 
-          NAME                      READY   STATUS    RESTARTS   AGE
-          pacman-57859c8df7-879kt   1/1     Running   0          27s
-          ~~~
+        NAME                      READY   STATUS    RESTARTS   AGE
+        pacman-57859c8df7-879kt   1/1     Running   0          27s
+        ~~~
 
 3. Access the game in your Fedora35 node IP in port 80.
 
